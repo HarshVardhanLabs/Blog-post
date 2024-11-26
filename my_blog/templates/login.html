@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .post { margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        img { max-width: 100%; height: auto; margin-top: 10px; }
+        pre { background: #f4f4f9; padding: 10px; border-radius: 5px; }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background: #0073e6;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0073e6;
+        }
+
+        a:hover {
+            color: #005bb5;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0073e6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background: #0073e6;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <a href="{{ url_for('new_post') }}">Create New Post</a>
+    {% for post in posts %}
+        <div class="post">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            {% if post.code_snippet %}
+                <pre><code>{{ post.code_snippet }}</code></pre>
+            {% endif %}
+            {% if post.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" alt="Image for {{ post.title }}">
+            {% endif %}
+            <a href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
+        </div>
+    {% endfor %}
+</body>
+</html>

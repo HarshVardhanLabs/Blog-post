@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .post {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        pre {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            position: relative;
+        }
+        pre code {
+            display: block;
+            padding: 0;
+            margin: 0;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <a href="{{ url_for('new_post') }}" class="btn btn-primary mb-4">Create New Post</a>
+    {% for post in posts %}
+        <div class="post">
+            <h2>{{ post.title }}</h2>
+            <p class="timestamp">Posted on {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            <p>{{ post.content }}</p>
+            {% if post.code_snippet %}
+                <pre><code class="language-python">{{ post.code_snippet }}</code></pre>
+                <button class="copy-btn" onclick="copyCode('{{ post.code_snippet }}')">Copy</button>
+            {% endif %}
+            {% if post.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" alt="Image for {{ post.title }}">
+            {% endif %}
+            <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger mt-2" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+        </div>
+    {% endfor %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script>
+        // Copy code snippet to clipboard
+        function copyCode(code) {
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Code copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
