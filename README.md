@@ -34,5 +34,30 @@ This is a simple **Flask-based blog application** that allows users to create, v
 
 1. **Clone the repository**  
    ```bash  
-   git clone https://github.com/yourusername/flask-blog.git  
-   cd flask-blog  
+   https://github.com/HarshVardhanLabs/Blog-post.git
+   cd flask-blog
+
+### File Descriptions
+- **app.py**: Main Flask application file.
+- **my_database.db**: SQLite database file (automatically created).
+- **static/uploads/**: Directory for storing uploaded images.
+- **templates/index.html**: Home page template for displaying posts.
+- **templates/new_post.html**: Form for creating new posts.
+- **README.md**: Documentation file for the project.
+
+## Usage
+1. Go to the homepage (`http://127.0.0.1:5000/`).
+2. Click on **"Create New Post"** to add a new blog post.
+3. Fill in the title, content, code snippet, and upload an image.
+4. Click **Submit** to create the post.
+5. View all posts on the homepage. Posts can be deleted using the **Delete** button.
+
+## Contributions
+Contributions are welcome! Fork this repository and submit a pull request with your improvements.
+
+## Acknowledgments
+- [Flask](https://flask.palletsprojects.com/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Prism.js](https://prismjs.com/)
+
+   
