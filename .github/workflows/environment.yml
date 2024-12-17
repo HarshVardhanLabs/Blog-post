@@ -1,0 +1,10 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - flask==2.3.3
+  - flask-sqlalchemy==3.0.5
+  - werkzeug==3.0.1
+  - pytest
+  - flake8
